@@ -34,16 +34,18 @@ def predict_fraud(input_data):
 if uploaded_file:
     try:
         
+        st.write("Reading uploading file...")
         df = pd.read_csv(uploaded_file)
+        st.write("File read successfully")
         
         required_columns = ["Time", "Amount"] + [f"V{i}" for i in range(1, 29)]
         if not all(col in df.columns for col in required_columns):
             st.error("CSV file must contain columns: Time, Amount, and V1 to V28.")
         else:
-      
+            st.write("Processing input data...")
             input_data = df[required_columns].values
             
-          
+            st.write("Making predictions...")
             df["Prediction"] = predict_fraud(input_data)
             
           
